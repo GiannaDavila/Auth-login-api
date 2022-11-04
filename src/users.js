@@ -39,6 +39,6 @@ export async function updateUser(req,res){
         return 
     }
     const db = dbConnect()
-    const doc = await ('users').doc(uid).update(req.body)
+    const doc = await db.collection('users').doc(uid).update(req.body)
     res.status(202).send({ message: 'Updated'})
 }
