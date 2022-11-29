@@ -31,14 +31,8 @@ export async function addNewUser(req,res){
 }
 
 export async function updateUser(req,res){
-    const token = req.headers.authorization
-    const decodedToken = jwt.verify(token, secretKey)
-    const { uid } = req.params
-    if(uid !== decodedToken.uid){
-        res.status(401).send({ message: 'Invalid token ID'})
-        return 
-    }
+    const { uid } = req.params//profile they want to update
     const db = dbConnect()
-    const doc = await db.collection('users').doc(uid).update(req.body)
+    await db.collection('users').doc(uid).update(req.body)
     res.status(202).send({ message: 'Updated'})
 }
